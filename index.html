@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cantinho Junino Secreto - Nina</title>
+  <style>
+    /* Fonte e Reset */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1a1a1a;
+      color: #f2f2f2;
+      background-image: url('https://i.imgur.com/QYFvJq3.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      position: relative;
+      height: 100vh;
+    }
+
+    /* Fundo de corações flutuantes */
+    @keyframes flutuar {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(-100vh) translateX(30px) rotate(360deg); opacity: 0; }
+    }
+    .coracao {
+      position: fixed;
+      bottom: -50px;
+      font-size: 1.5rem;
+      color: #ff6b6b;
+      animation-name: flutuar;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    /* Bandeirinhas */
+    .bandeirinhas {
+      width: 100%;
+      height: 70px;
+      background: url('https://i.imgur.com/xTZQlwx.png') repeat-x center;
+      background-size: contain;
+      animation: bandeirolhar 6s linear infinite;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    @keyframes bandeirolhar {
+      0% { background-position-x: 0; }
+      100% { background-position-x: 1000px; }
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 1rem 1rem;
+      animation: fadeInDown 1s ease forwards;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #ffcc70;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px #ff7b00;
+    }
+
+    p.subtitulo {
+      font-size: 1.1rem;
+      color: #ffbb33;
+      font-weight: 600;
+      text-shadow: 0 0 5px #ff7b00;
+    }
+
+    /* Conteúdo principal */
+    .conteudo {
+      padding: 2rem 2rem 3rem;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: rgba(0,0,0,0.65);
+      border-radius: 20px;
+      box-shadow: 0 0 25px 5px rgba(255,123,0,0.5);
+      animation: fadeInUp 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    /* Maçã do amor */
+    .macadoamor img {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 20px 5px rgba(255, 123, 0, 0.8);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .macadoamor img:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 0 30px 8px #ff8a00;
+    }
+    .macadoamor p {
+      font-size: 1.2rem;
+      color: #ffcd80;
+      font-weight: 600;
+      text-align: center;
+      text-shadow: 0 0 6px #ff7b00;
+      margin-top: -0.5rem;
+    }
+
+    /* Mensagem em destaque */
+    .mensagem {
+      font-style: italic;
+      background: #2e2e2e;
+      padding: 1.2rem 1.5rem;
+      border-left: 6px solid #ff7b00;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+      font-size: 1.15rem;
+      color: #ffd580;
+      box-shadow: 0 0 15px #ff7b00;
+      animation: pulse 3s infinite;
+      user-select: none;
+    }
+
+    /* Botão da fogueira */
+    button {
+      background-color: #ff7b00;
+      color: white;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 0 15px #ff7b00;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #e06600;
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ff8a00;
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+
+    /* Fogueira animada em CSS */
+    .fogueira-container {
+      text-align: center;
+      margin-top: 2.5rem;
+      position: relative;
+      min-height: 200px;
+    }
+
+    #fogueira {
+      display: none;
+      margin-top: 1rem;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    /* Chamas animadas */
+    .chama {
+      position: relative;
+      width: 80px;
+      height: 120px;
+      margin: 0 auto;
+      filter: drop-shadow(0 0 6px #ff7b00);
+      animation: chamaDance 3s ease-in-out infinite;
+    }
+    .chama::before, .chama::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 40px;
+      height: 90px;
+      background: radial-gradient(circle at center, #ff5a00, #ffb800 70%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      filter: blur(2px);
+      transform-origin: bottom center;
+      animation: chamaFlicker 1.5s infinite alternate;
+    }
+    .chama::after {
+      left: 30%;
+      width: 20px;
+      height: 50px;
+      background: radial-gradient(circle at center, #ffbb33, #ff4400 90%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      filter: blur(1.5px);
+      animation-delay: 0.7s;
+    }
+    @keyframes chamaDance {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.05) translateY(-5px); }
+    }
+    @keyframes chamaFlicker {
+      0% { opacity: 0.7; transform: rotate(-5deg) scale(1); }
+      100% { opacity: 1; transform: rotate(5deg) scale(1.1); }
+    }
+
+    /* Texto abaixo da fogueira */
+    #fogueira p {
+      margin-top: 0.7rem;
+      color: #ffcc70;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-shadow: 0 0 6px #ff7b00;
+      user-select: none;
+    }
+
+    /* Cantinho surpresa */
+    .cantinho-secreto {
+      margin-top: 3rem;
+      background: #2b2b2b;
+      padding: 1.5rem;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #ffd87e;
+      box-shadow: 0 0 25px 3px rgba(255,123,0,0.6);
+      transition: background 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      animation: fadeIn 3s ease forwards;
+      opacity: 0;
+    }
+    .cantinho-secreto:hover {
+      background: #3a3a3a;
+      transform: scale(1.05);
+      box-shadow: 0 0 35px 6px #ff9a00;
+    }
+
+    /* Animações gerais */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 10px #ff7b00; }
+      50% { text-shadow: 0 0 20px #ffa500; }
+    }
+    @media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    button {
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+    }
+    }
+  </style>
+</head>
+<body>
+
+    <audio id="musicaFundo" autoplay loop hidden>
+        <source src="/music/MUSICAJUNINA.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <!-- Bandeirinhas animadas -->
+    <div class="bandeirinhas" aria-hidden="true"></div>
+
+    <header role="banner" aria-label="Cabeçalho do Cantinho Junino">
+        <h1 tabindex="0">Cantinho Junino Secreto - Nina</h1>
+        <p class="subtitulo" tabindex="0">Um lugar especial para os corações mais quentes</p>
+    </header>
+
+    <main role="main" class="conteudo" aria-label="Conteúdo principal do Cantinho Junino">
+        <section class="macadoamor" aria-labelledby="titulo-maca">
+        <img src="https://sabores-new.s3.amazonaws.com/public/2024/11/maca-do-amor.jpg" alt="Maçã do amor com açúcar brilhando" />
+        <p id="titulo-maca" tabindex="0">Maçã do amor para adoçar seus dias!</p>
+        </section>
+
+        <section class="mensagem" tabindex="0" aria-live="polite">
+        <p>Que essa fogueira aqueça sua alma e acenda sonhos em seu coração.</p>
+        </section>
+
+        <section>
+        <button id="botaoFogueira" aria-pressed="false" aria-label="Acender a fogueira">
+            Acender a Fogueira
+        </button>
+
+        <div id="fogueira" role="img" aria-label="Animação de fogueira">
+            <div class="chama" aria-hidden="true"></div>
+            <p>Fogueira acesa! Queimar as tristezas e renovar a esperança.</p>
+        </div>
+        </section>
+
+        <section class="cantinho-secreto" tabindex="0" aria-label="Mensagem secreta para Nina" role="region">
+        <p>Para você, Nina, que ilumina esse cantinho com seu sorriso, este espaço é seu refúgio especial.</p>
+        </section>
+    </main>
+
+  <!-- Corações flutuantes -->
+  <script>
+    const numeroCoracoes = 15;
+    const body = document.body;
+
+    for(let i = 0; i < numeroCoracoes; i++) {
+      const coracao = document.createElement('div');
+      coracao.classList.add('coracao');
+      coracao.textContent = '🎉';
+      coracao.style.left = Math.random() * 100 + 'vw';
+      coracao.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+      coracao.style.animationDuration = (5 + Math.random() * 5) + 's';
+      coracao.style.animationDelay = (Math.random() * 10) + 's';
+      body.appendChild(coracao);
+    }
+
+    // Controle da fogueira
+    const botao = document.getElementById('botaoFogueira');
+    const fogueira = document.getElementById('fogueira');
+
+    botao.addEventListener('click', () => {
+      const aceso = fogueira.style.display === 'block';
+      if (!aceso) {
+        fogueira.style.display = 'block';
+        botao.textContent = 'Apagar a Fogueira';
+        botao.setAttribute('aria-pressed', 'true');
+      } else {
+        fogueira.style.display = 'none';
+        botao.textContent = 'Acender a Fogueira';
+        botao.setAttribute('aria-pressed', 'false');
+      }
+    });
+
+    const musica = document.getElementById('musicaFundo');
+    musica.volume = 0.3;
+  </script>
+
+</body>
+</html>
